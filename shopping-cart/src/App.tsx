@@ -1,11 +1,16 @@
 import { Container } from "react-bootstrap";
 import AppRoutes from "./routes/AppRoutes";
+import Navbar from "./components/Navbar";
+import "./App.css";
 
 function App() {
   return (
-    <Container>
-      <AppRoutes />
-    </Container>
+    <>
+      <Navbar />
+      <Container>
+        <AppRoutes />
+      </Container>
+    </>
   );
 }
 
