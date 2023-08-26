@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Row, Col, Card } from "react-bootstrap";
+import { currencyFormatter } from "../utils/currencyFormatter";
 
 type Product = {
   id: number;
@@ -38,7 +39,7 @@ const Store = () => {
               <Card.Body>
                 <Card.Title className="fs-6 d-flex justify-content-between align-items-baseline">
                   <span className="w-75">{item.title}</span>
-                  <span>${item.price}</span>
+                  <span>{currencyFormatter(item.price)}</span>
                 </Card.Title>
               </Card.Body>
             </Card>
