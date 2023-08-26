@@ -11,3 +11,9 @@
   width: 1.5rem;
   transform: translate(40%, 20%);
 }
+
+.card-img {
+  height: 200px;
+  object-fit: contain;
+  padding: 15px 5px;
+}
