@@ -4,7 +4,7 @@ import { useShoppingCart } from "../hooks/useShoppingCart";
 import Cart from "../assets/Cart";
 
 const Navbar = () => {
-  const { cartQuantity } = useShoppingCart();
+  const { cartQuantity, openCart } = useShoppingCart();
   return (
     <>
       <NavbarBs className="shadow-sm">
@@ -20,15 +20,18 @@ const Navbar = () => {
               About
             </Nav.Link>
           </Nav>
-          <Button
-            variant="outline-secondary"
-            className="cart-button rounded-circle"
-          >
-            <Cart />
-            <div className="bg-danger rounded-circle text-light cart-count">
-              {cartQuantity}
-            </div>
-          </Button>
+          {cartQuantity > 0 && (
+            <Button
+              variant="outline-secondary"
+              className="cart-button rounded-circle"
+              onClick={openCart}
+            >
+              <Cart />
+              <div className="bg-danger rounded-circle text-light cart-count">
+                {cartQuantity}
+              </div>
+            </Button>
+          )}
         </Container>
       </NavbarBs>
     </>
