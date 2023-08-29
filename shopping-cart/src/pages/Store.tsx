@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import { currencyFormatter } from "../utils/currencyFormatter";
 import { useShoppingCart } from "../hooks/useShoppingCart";
+import { fetchData } from "../utils/fetchData";
 
 type Product = {
   id: number;
@@ -22,18 +23,8 @@ const Store = () => {
     removeItem,
   } = useShoppingCart();
 
-  const fetchData = async () => {
-    try {
-      const fetchData = await fetch("https://fakestoreapi.com/products");
-      const response = await fetchData.json();
-      setData(response);
-    } catch (error) {
-      console.log("Error fetching data", error);
-    }
-  };
-
   useEffect(() => {
-    fetchData();
+    fetchData().then((res) => setData(res));
   }, []);
 
   return (
