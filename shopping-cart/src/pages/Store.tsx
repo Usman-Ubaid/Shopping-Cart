@@ -1,19 +1,12 @@
-import { useState, useEffect } from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import { currencyFormatter } from "../utils/currencyFormatter";
-import { useShoppingCart } from "../hooks/useShoppingCart";
-import { fetchData } from "../utils/fetchData";
+import { useShoppingCart } from "../hooks/ShoppingCartContext/useShoppingCart";
+import { useFetchData } from "../hooks/FetchDataContext/useFetchData";
 
-type Product = {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  image: string;
-};
+//
 
 const Store = () => {
-  const [data, setData] = useState<Product[]>([]);
+  const { data } = useFetchData();
 
   const {
     getItemQuantity,
@@ -22,10 +15,6 @@ const Store = () => {
     decreaseItemQuantity,
     removeItem,
   } = useShoppingCart();
-
-  useEffect(() => {
-    fetchData().then((res) => setData(res));
-  }, []);
 
   return (
     <>
