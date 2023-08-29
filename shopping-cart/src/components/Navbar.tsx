@@ -1,8 +1,10 @@
 import { Navbar as NavbarBs, Nav, Container, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import { useShoppingCart } from "../hooks/useShoppingCart";
 import Cart from "../assets/Cart";
 
 const Navbar = () => {
+  const { cartQuantity } = useShoppingCart();
   return (
     <>
       <NavbarBs className="shadow-sm">
@@ -24,7 +26,7 @@ const Navbar = () => {
           >
             <Cart />
             <div className="bg-danger rounded-circle text-light cart-count">
-              1
+              {cartQuantity}
             </div>
           </Button>
         </Container>

@@ -15,6 +15,7 @@ type ShoppingCartContextValue = {
   increaseItemQuantity: (id: number) => void;
   decreaseItemQuantity: (id: number) => void;
   removeItem: (id: number) => void;
+  cartQuantity: number;
 };
 
 export const ShoppingCartContext = createContext(
@@ -25,6 +26,11 @@ export const ShoppingCartProvider = ({
   children,
 }: ShoppingCartProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItemProps[]>([]);
+
+  const cartQuantity = cartItems.reduce(
+    (quantity, item) => quantity + item.quantity,
+    0
+  );
 
   const getItemQuantity = (id: number) => {
     return cartItems.find((item) => item.id === id)?.quantity || 0;
@@ -68,6 +74,7 @@ export const ShoppingCartProvider = ({
         increaseItemQuantity,
         decreaseItemQuantity,
         removeItem,
+        cartQuantity,
       }}
     >
       {children}
