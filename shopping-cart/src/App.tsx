@@ -1,17 +1,20 @@
 import { Container } from "react-bootstrap";
 import AppRoutes from "./routes/AppRoutes";
 import Navbar from "./components/Navbar";
-import { ShoppingCartProvider } from "./hooks/ShoppingCartContext";
+import { ShoppingCartProvider } from "./hooks/ShoppingCartContext/ShoppingCartContext";
+import { FetchDataProvider } from "./hooks/FetchDataContext/FetchDataContext";
 import "./App.css";
 
 function App() {
   return (
-    <ShoppingCartProvider>
-      <Navbar />
-      <Container>
-        <AppRoutes />
-      </Container>
-    </ShoppingCartProvider>
+    <FetchDataProvider>
+      <ShoppingCartProvider>
+        <Navbar />
+        <Container>
+          <AppRoutes />
+        </Container>
+      </ShoppingCartProvider>
+    </FetchDataProvider>
   );
 }
 
