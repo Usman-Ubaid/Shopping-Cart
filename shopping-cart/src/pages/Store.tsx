@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import { currencyFormatter } from "../utils/currencyFormatter";
-import { useShoppingCart } from "../hooks/ShoppingCartContext";
+import { useShoppingCart } from "../hooks/useShoppingCart";
 
 type Product = {
   id: number;
@@ -19,6 +19,7 @@ const Store = () => {
     addToCart,
     increaseItemQuantity,
     decreaseItemQuantity,
+    removeItem,
   } = useShoppingCart();
 
   const fetchData = async () => {
@@ -76,7 +77,11 @@ const Store = () => {
                           +
                         </Button>
                       </div>
-                      <Button variant="danger" size="sm">
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() => removeItem(item.id)}
+                      >
                         Remove
                       </Button>
                     </div>
