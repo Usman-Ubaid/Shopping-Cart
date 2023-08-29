@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import { currencyFormatter } from "../utils/currencyFormatter";
+import { useShoppingCart } from "../hooks/ShoppingCartContext";
 
 type Product = {
   id: number;
@@ -10,44 +11,15 @@ type Product = {
   image: string;
 };
 
-type CartItemProps = {
-  id: number;
-  quantity: number;
-};
-
 const Store = () => {
   const [data, setData] = useState<Product[]>([]);
-  const [cartItems, setCartItems] = useState<CartItemProps[]>([]);
 
-  const getItemQuantity = (id: number) => {
-    return cartItems.find((item) => item.id === id)?.quantity || 0;
-  };
-
-  const handleAddToCart = (id: number) => {
-    const itemIndex = cartItems.findIndex((item) => item.id === id);
-
-    if (itemIndex === -1) {
-      setCartItems([...cartItems, { id, quantity: 1 }]);
-    } else {
-      const updatedCartItems = [...cartItems];
-      updatedCartItems[itemIndex].quantity += 1;
-      setCartItems(updatedCartItems);
-    }
-  };
-
-  const increaseItemQuantity = (getItem: { id: number }) => {
-    const itemIndex = cartItems.findIndex((item) => item.id === getItem.id);
-    const updatedCartItem = [...cartItems];
-    updatedCartItem[itemIndex].quantity += 1;
-    setCartItems(updatedCartItem);
-  };
-
-  const decreaseItemQuantity = (getItem: { id: number }) => {
-    const itemIndex = cartItems.findIndex((item) => item.id === getItem.id);
-    const updatedCartItem = [...cartItems];
-    updatedCartItem[itemIndex].quantity -= 1;
-    setCartItems(updatedCartItem);
-  };
+  const {
+    getItemQuantity,
+    addToCart,
+    increaseItemQuantity,
+    decreaseItemQuantity,
+  } = useShoppingCart();
 
   const fetchData = async () => {
     try {
@@ -65,7 +37,7 @@ const Store = () => {
 
   return (
     <>
-      <h1 className="mt-4 ">Store</h1>
+      <h1 className="mt-4 ">Store </h1>
       <Row xs={1} md={2} lg={4}>
         {data?.map((item) => (
           <Col key={item.id} className="g-3 mb-5">
@@ -79,7 +51,7 @@ const Store = () => {
                 <div className="mt-auto">
                   {getItemQuantity(item.id) === 0 ? (
                     <Button
-                      onClick={() => handleAddToCart(item.id)}
+                      onClick={() => addToCart(item.id)}
                       variant="primary"
                       className="w-100"
                     >
@@ -89,7 +61,7 @@ const Store = () => {
                     <div className="d-flex flex-column align-items-center">
                       <div className="my-2 d-flex justify-content-center align-items-center">
                         <Button
-                          onClick={() => decreaseItemQuantity(item)}
+                          onClick={() => decreaseItemQuantity(item.id)}
                           variant="primary"
                         >
                           -
@@ -99,7 +71,7 @@ const Store = () => {
                         )} in cart`}</span>
                         <Button
                           variant="primary"
-                          onClick={() => increaseItemQuantity(item)}
+                          onClick={() => increaseItemQuantity(item.id)}
                         >
                           +
                         </Button>
