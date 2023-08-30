@@ -17,3 +17,9 @@
   object-fit: contain;
   padding: 15px 5px;
 }
+
+.cart-img {
+  height: 100px;
+  width: 70px;
+  object-fit: contain;
+}
