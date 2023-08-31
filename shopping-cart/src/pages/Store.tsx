@@ -3,8 +3,6 @@ import { currencyFormatter } from "../utils/currencyFormatter";
 import { useShoppingCart } from "../hooks/ShoppingCartContext/useShoppingCart";
 import { useFetchData } from "../hooks/FetchDataContext/useFetchData";
 
-//
-
 const Store = () => {
   const { data } = useFetchData();
 

@@ -13,7 +13,6 @@ const CartItem = ({ id, quantity }: CartItemProps) => {
   const { data } = useFetchData();
 
   const item = data.find((elem) => elem.id === id);
-  console.log(item);
   if (item == null) return null;
 
   return (
